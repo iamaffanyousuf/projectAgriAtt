@@ -1,0 +1,10 @@
+rm model.pth
+
+train.py ... model is now training on given dataset 
+
+
+predicts based on trained weights
+
+The system has two phases: training and inference.
+In the training phase, the model learns from labeled data and saves the learned weights.
+In the inference phase, the model uses these weights to classify new images and output predictions with confidence.

@@ -11,7 +11,7 @@ DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 # Config
 DATA_DIR = "dataset"
 BATCH_SIZE = 16
-EPOCHS = 3
+EPOCHS = 5
 LR = 5e-5
 
 # Transforms (updated augmentation)

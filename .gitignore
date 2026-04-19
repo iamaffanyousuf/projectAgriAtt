@@ -1,4 +1,20 @@
-__pycache__/
-model.pth
+# Python
 venv/
-temp/
+__pycache__/
+*.pyc
+
+# Dataset
+dataset/
+PlantVillage/
+*.zip
+
+# Models
+*.pth
+
+# Kaggle
+.kaggle/
+kaggle.json
+
+# OS
+.DS_Store
+Thumbs.db

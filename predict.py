@@ -9,10 +9,7 @@ from model import get_model
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 # Load class names
-class_names = [
-    "wheat_rust",
-    "mung_leaf_spot"
-]
+class_names = ["tomato_early_blight", "tomato_healthy", "tomato_late_blight"]
 
 # Load model
 model = get_model(num_classes=len(class_names))
@@ -21,10 +18,7 @@ model.to(DEVICE)
 model.eval()
 
 # Transform
-transform = transforms.Compose([
-    transforms.Resize((224,224)),
-    transforms.ToTensor()
-])
+transform = transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor()])
 
 # CLI input
 img_path = input("Enter image path: ")
@@ -39,4 +33,4 @@ with torch.no_grad():
     confidence, pred = torch.max(probs, 1)
 
 print(f"Prediction: {class_names[pred.item()]}")
-print(f"Confidence: {confidence.item()*100:.2f}%")
+print(f"Confidence: {confidence.item() * 100:.2f}%")

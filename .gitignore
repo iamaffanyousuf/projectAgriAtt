@@ -11,6 +11,8 @@ PlantVillage/
 # Models
 *.pth
 
+!backend/model.pth
+
 # Kaggle
 .kaggle/
 kaggle.json

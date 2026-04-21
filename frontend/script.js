@@ -13,26 +13,25 @@ const names = {
   tomato_healthy: "Healthy Leaf",
 };
 
-// image validation
 const validImageTypes = ["image/jpeg", "image/png", "image/jpg"];
+
+// image validation
 function isValidType(file) {
   return (
-    (file && validImageTypes.includes(file.type)) ||
-    file.name.match(/\.(jpeg|jpg|png)$/i)
+    file &&
+    (validImageTypes.includes(file.type) ||
+      !!file.name.match(/\.(jpeg|jpg|png)$/i))
   );
 }
 
 // upload button trigger
-uploadBtn.onclick = () => {
-  fileInput.click();
-};
+uploadBtn.onclick = () => fileInput.click();
 
 // file selection
 fileInput.onchange = () => {
   const file = fileInput.files[0];
-
   if (!isValidType(file)) {
-    alert("Please upload a valid image! (jpeg, jpg, png)");
+    alert("Please upload a valid image (jpeg, jpg, png).");
     fileInput.value = "";
     preview.style.display = "none";
     return;
@@ -56,37 +55,35 @@ card.addEventListener("dragleave", () => {
 card.addEventListener("drop", (e) => {
   e.preventDefault();
   card.style.border = "";
-
   const file = e.dataTransfer.files[0];
-
   if (!isValidType(file)) {
-    alert("Please upload a valid image! (jpeg, jpg, png)");
+    alert("Please upload a valid image (jpeg, jpg, png).");
     return;
   }
-
   const dt = new DataTransfer();
   dt.items.add(file);
   fileInput.files = dt.files;
-
   preview.src = URL.createObjectURL(file);
   preview.style.display = "block";
 });
 
-// predict button
 button.addEventListener("click", async () => {
   const file = fileInput.files[0];
 
+  if (!file) {
+    alert("Please select an image first.");
+    return;
+  }
   if (!isValidType(file)) {
-    alert("Please upload a valid image! (jpeg, jpg, png)");
+    alert("Please upload a valid image (jpeg, jpg, png).");
     return;
   }
 
-  // Preview
+  // preview
   preview.src = URL.createObjectURL(file);
 
   const formData = new FormData();
   formData.append("file", file);
-
   result.innerText = "⏳ Analyzing...";
 
   try {
@@ -95,30 +92,32 @@ button.addEventListener("click", async () => {
       body: formData,
     });
 
-    if (!response.ok) {
-      throw new Error("Server error");
-    }
+    if (!response.ok) throw new Error("Server error");
 
     const data = await response.json();
-
     const predictions = data.predictions;
 
+    if (!predictions || predictions.length === 0) {
+      result.innerText = "⚠️ No predictions returned.";
+      return;
+    }
+
     const top1 = predictions[0];
-    const top2 = predictions[1];
-
     const label1 = names[top1.label] || top1.label;
-    const label2 = names[top2.label] || top2.label;
+    let output = `🧠 ${label1} (${(top1.confidence * 100).toFixed(2)}%)`;
 
-    let output =
-      `🧠 ${label1} (${(top1.confidence * 100).toFixed(2)}%)` +
-      `\n💡 Next best guess: ${label2} (${(top2.confidence * 100).toFixed(2)}%)`;
+    if (predictions.length >= 2) {
+      const top2 = predictions[1];
+      const label2 = names[top2.label] || top2.label;
+      output += `\n💡 Next best guess: ${label2} (${(top2.confidence * 100).toFixed(2)}%)`;
+    }
 
-    if (top1.confidence < 0.6) {
-      output += `\n💡 Low Confidence`;
+    if (top1.confidence < 0.4) {
+      output += "\n⚠️ Low confidence — try a clearer image.";
     }
 
     result.innerText = output;
   } catch (err) {
-    result.innerText = "❌ Error connecting to server";
+    result.innerText = "❌ Error connecting to server.";
   }
 });

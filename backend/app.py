@@ -8,7 +8,7 @@ from core.model import get_model
 import os
 import io
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(__file__)
 MODEL_PATH = os.path.join(BASE_DIR, "model.pth")
 
 app = FastAPI()

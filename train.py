@@ -4,7 +4,7 @@ from torchvision import datasets, transforms
 import torch.nn as nn
 import torch.optim as optim
 
-from model import get_model
+from core.model import get_model
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -47,7 +47,7 @@ val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE)
 model = get_model(num_classes=len(train_dataset.classes)).to(DEVICE)
 
 # Load pre-trained weights
-model.load_state_dict(torch.load("model.pth"))
+model.load_state_dict(torch.load("model.pth", map_location=torch.device("cpu")))
 print("Loaded previous trained model for fine-tuning")
 
 # layer freezing

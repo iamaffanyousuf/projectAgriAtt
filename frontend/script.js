@@ -4,7 +4,7 @@ const preview = document.getElementById("preview");
 const button = document.getElementById("predictBtn");
 const uploadBtn = document.getElementById("uploadBtn");
 
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://projectagriatt.onrender.com";
 
 // class names
 const names = {

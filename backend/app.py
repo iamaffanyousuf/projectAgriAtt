@@ -41,6 +41,11 @@ transform = transforms.Compose(
 )
 
 
+@app.get("/")
+def root():
+    return {"status": "Agri-Attention API is running!"}
+
+
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
     image_bytes = await file.read()

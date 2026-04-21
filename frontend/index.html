@@ -1,23 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Agri-Attention</title>
-    <link rel="stylesheet" href="style.css">
+  <title>Agri-Attention</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h2>🌿 Agri-Attention</h2>
-    <p>Upload a leaf image to detect disease</p>
+  <div class="container">
+    <h1>🌿 Agri-Attention</h1>
+    <p class="subtitle">AI-powered leaf disease detection</p>
 
-    <div class="box">
-        <input type="file" id="fileInput"><br>
-        <button id="predictBtn">Predict</button>
+    <div class="card">
+      <input type="file" id="fileInput" hidden>
+      <button id="uploadBtn">Upload Image</button>
+      <button id="predictBtn">Analyze</button>
+
+      <img id="preview" />
+
+      <div id="result" class="result"></div>
     </div>
 
-    <img id="preview" />
+    <div class="">
+      <p class="footer">
+        This model is trained on specific classes, so it always predicts the closes class even for unrelated inputs. That is how classification models behaves,<br> it HAS to choose one of the known classes, it literally cannot say "I don't know" unless explicitly trained for non-leaf/crop scenarios.<br>
+        <span style="font-weight: bolder;">This is called Forced Classification/Closed-set Assumption.</span>
+      </p>
+    </div>
 
-    <h3 id="result"></h3>
+    <p class="footer">
+      AI-assisted prediction • Not a substitute for expert advice
+    </p>
+  </div>
 
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

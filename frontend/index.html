@@ -1,13 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <title>Agri-Attention</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-  <div class="container">
-    <h1>🌿 Agri-Attention</h1>
+  <head>
+    <title>Agri-Attention</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- <h1>🌿 Agri-Attention</h1>
     <p class="subtitle">AI-powered leaf disease detection</p>
 
     <div class="card">
@@ -18,20 +17,34 @@
       <img id="preview" />
 
       <div id="result" class="result"></div>
-    </div>
+    </div> -->
 
-    <div class="">
+      <iframe
+        src="https://iamaffanyousuf-projectagriatt.hf.space"
+        width="100%"
+        height="700"
+        style="border: none; border-radius: 20px"
+      >
+      </iframe>
+
+      <div class="">
+        <p class="footer">
+          This model is trained on specific classes, so it always predicts the
+          closes class even for unrelated inputs. That is how classification
+          models behaves,<br />
+          it HAS to choose one of the known classes, it literally cannot say "I
+          don't know" unless explicitly trained for non-leaf/crop scenarios.<br />
+          <span style="font-weight: bolder"
+            >This is called Forced Classification/Closed-set Assumption.</span
+          >
+        </p>
+      </div>
+
       <p class="footer">
-        This model is trained on specific classes, so it always predicts the closes class even for unrelated inputs. That is how classification models behaves,<br> it HAS to choose one of the known classes, it literally cannot say "I don't know" unless explicitly trained for non-leaf/crop scenarios.<br>
-        <span style="font-weight: bolder;">This is called Forced Classification/Closed-set Assumption.</span>
+        AI-assisted prediction • Not a substitute for expert advice
       </p>
     </div>
 
-    <p class="footer">
-      AI-assisted prediction • Not a substitute for expert advice
-    </p>
-  </div>
-
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
